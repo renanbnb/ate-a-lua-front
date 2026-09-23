@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Início · Até a Lua</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+<link rel="stylesheet" href="assets/app.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="assets/tailwind.config.js"></script>
+</head>
+<body>
+<main class="page">
+
+  <!-- Saudação, mês e privacidade -->
+  <header class="flex items-center gap-space-sm">
+    <div class="avatar w-10 h-10 bg-surface-container-high text-primary"><span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">bedtime</span></div>
+    <div class="min-w-0 flex-1">
+      <p class="font-label-sm text-label-sm text-on-surface-variant">Boa noite,</p>
+      <h1 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-1">Gabriel<span class="dot w-2 h-2 text-tertiary shadow-[0_0_8px_rgba(74,225,118,0.6)]"></span></h1>
+    </div>
+    <button class="chip bg-surface-container-high" type="button"><span class="text-primary">Setembro, 2026</span><span class="material-symbols-outlined text-on-surface-variant">expand_more</span></button>
+    <button class="icon-btn" type="button" aria-label="Ocultar valores" id="toggle-values"><span class="material-symbols-outlined">visibility</span></button>
+  </header>
+
+  <!-- Saldo do mês (abre o Dashboard) -->
+  <a href="dashboard.html" class="block relative rounded-xl bg-surface-container-low p-space-lg overflow-hidden shadow-xl active:scale-[0.99] transition-transform">
+    <div class="absolute -right-12 -top-12 w-40 h-40 rounded-full bg-primary-container/15 blur-3xl pointer-events-none"></div>
+    <div class="absolute -left-12 -bottom-12 w-36 h-36 rounded-full bg-secondary-container/20 blur-3xl pointer-events-none"></div>
+    <div class="relative flex flex-col gap-space-md">
+      <div class="flex flex-col gap-1">
+        <div class="flex items-center justify-between">
+          <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Saldo previsto do mês</span>
+          <span class="badge badge-success"><span class="material-symbols-outlined">trending_up</span>+8,4%</span>
+        </div>
+        <div class="flex items-baseline gap-1">
+          <span class="font-headline-md text-headline-md text-primary">R$</span>
+          <span class="font-display-lg-mobile text-display-lg-mobile text-on-surface font-bold tabular-nums" data-sensitive>1.250,00</span>
+        </div>
+      </div>
+      <div class="w-full h-1.5 rounded-full bg-surface-container-highest overflow-hidden flex gap-0.5">
+        <div class="bg-tertiary rounded-full" style="width: 71%;"></div>
+        <div class="bg-error rounded-full" style="width: 29%;"></div>
+      </div>
+      <div class="grid grid-cols-2 gap-space-sm">
+        <div class="flex flex-col gap-1 p-3 rounded-lg bg-surface-container">
+          <span class="stat-label flex items-center gap-1.5"><span class="stat-icon w-5 h-5 rounded-full bg-tertiary-container/30 text-tertiary"><span class="material-symbols-outlined text-[13px]">arrow_downward</span></span>A receber</span>
+          <span class="amount text-on-surface" data-sensitive>R$ 2.100,00</span>
+          <span class="font-label-sm text-label-sm text-tertiary">3 entradas agendadas</span>
+        </div>
+        <div class="flex flex-col gap-1 p-3 rounded-lg bg-surface-container">
+          <span class="stat-label flex items-center gap-1.5"><span class="stat-icon w-5 h-5 rounded-full bg-error-container/40 text-error"><span class="material-symbols-outlined text-[13px]">arrow_upward</span></span>A pagar</span>
+          <span class="amount text-on-surface" data-sensitive>R$ 850,00</span>
+          <span class="font-label-sm text-label-sm text-error">8 contas pendentes</span>
+        </div>
+      </div>
+    </div>
+  </a>
+
+  <!-- Atalhos -->
+  <nav class="grid grid-cols-4 gap-2" aria-label="Atalhos">
+    <a href="parcelas.html" class="group flex flex-col items-center gap-2">
+      <span class="w-14 h-14 rounded-xl bg-surface-container flex items-center justify-center text-primary group-hover:bg-surface-container-high group-active:scale-95 transition-all"><span class="material-symbols-outlined">pie_chart</span></span>
+      <span class="font-label-sm text-label-sm text-on-surface group-hover:text-primary">Parcelas</span>
+    </a>
+    <a href="assinaturas.html" class="group flex flex-col items-center gap-2">
+      <span class="w-14 h-14 rounded-xl bg-surface-container flex items-center justify-center text-primary group-hover:bg-surface-container-high group-active:scale-95 transition-all"><span class="material-symbols-outlined">sync</span></span>
+      <span class="font-label-sm text-label-sm text-on-surface group-hover:text-primary">Assinaturas</span>
+    </a>
+    <a href="pessoas.html" class="group flex flex-col items-center gap-2">
+      <span class="w-14 h-14 rounded-xl bg-surface-container flex items-center justify-center text-primary group-hover:bg-surface-container-high group-active:scale-95 transition-all"><span class="material-symbols-outlined">group</span></span>
+      <span class="font-label-sm text-label-sm text-on-surface group-hover:text-primary">Pessoas</span>
+    </a>
+    <a href="metodos.html" class="group flex flex-col items-center gap-2">
+      <span class="w-14 h-14 rounded-xl bg-surface-container flex items-center justify-center text-primary group-hover:bg-surface-container-high group-active:scale-95 transition-all"><span class="material-symbols-outlined">credit_card</span></span>
+      <span class="font-label-sm text-label-sm text-on-surface group-hover:text-primary">Métodos</span>
+    </a>
+  </nav>
+
+  <!-- Contadores -->
+  <div class="grid grid-cols-3 gap-2">
+    <div class="card p-3 flex flex-col">
+      <span class="material-symbols-outlined text-[16px] text-primary mb-1">donut_large</span>
+      <span class="font-headline-md text-headline-md text-on-surface font-bold">4</span>
+      <span class="card-subtitle truncate">Parcelamentos</span>
+    </div>
+    <div class="card p-3 flex flex-col">
+      <span class="material-symbols-outlined text-[16px] text-secondary mb-1">autorenew</span>
+      <span class="font-headline-md text-headline-md text-on-surface font-bold">6</span>
+      <span class="card-subtitle truncate">Assinaturas</span>
+    </div>
+    <div class="card p-3 flex flex-col">
+      <span class="material-symbols-outlined text-[16px] text-tertiary mb-1">savings</span>
+      <span class="font-headline-md text-headline-md text-on-surface font-bold">3</span>
+      <span class="card-subtitle truncate">Recebimentos</span>
+    </div>
+  </div>
+
+</main>
+
+<nav id="bottom-nav" data-active="inicio"></nav>
+<script src="assets/app.js"></script>
+<script>
+  // Olho: esconde/mostra os valores marcados com data-sensitive
+  const toggle = document.getElementById('toggle-values');
+  toggle.addEventListener('click', () => {
+    const hide = toggle.getAttribute('aria-pressed') !== 'true';
+    toggle.setAttribute('aria-pressed', hide);
+    toggle.setAttribute('aria-label', hide ? 'Mostrar valores' : 'Ocultar valores');
+    toggle.firstElementChild.textContent = hide ? 'visibility_off' : 'visibility';
+    document.querySelectorAll('[data-sensitive]').forEach((el) => {
+      if (hide) el.dataset.value = el.textContent;
+      el.textContent = hide ? '••••••' : el.dataset.value;
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Dashboard · Até a Lua</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+<link rel="stylesheet" href="assets/app.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="assets/tailwind.config.js"></script>
+</head>
+<body>
+<main class="page">
+
+  <header class="page-header">
+    <div class="flex items-center gap-space-sm">
+      <button class="icon-btn" type="button" aria-label="Voltar" data-back><span class="material-symbols-outlined">arrow_back_ios_new</span></button>
+      <h1 class="page-title">Dashboard</h1>
+    </div>
+    <p class="page-subtitle">Visão geral do mês: quanto sai, quanto entra e com quem.</p>
+  </header>
+
+  <!-- Filtros ativos -->
+  <div class="flex items-center gap-2 overflow-x-auto -mx-margin px-margin" id="filters">
+    <button class="chip bg-secondary-container/40 text-primary" type="button"><span class="dot"></span>Setembro 2026<span class="material-symbols-outlined">expand_more</span></button>
+    <span class="chip" data-filter-chip><span class="material-symbols-outlined text-primary">credit_card</span>Nubank<button type="button" aria-label="Remover filtro Nubank" class="text-on-surface-variant hover:text-error flex" onclick="removeFilter(this)"><span class="material-symbols-outlined">close</span></button></span>
+    <span class="chip" data-filter-chip><span class="material-symbols-outlined text-tertiary">person</span>João Silva<button type="button" aria-label="Remover filtro João Silva" class="text-on-surface-variant hover:text-error flex" onclick="removeFilter(this)"><span class="material-symbols-outlined">close</span></button></span>
+    <button class="chip bg-transparent text-on-surface-variant hover:text-primary" type="button" id="btn-clear-filters" onclick="clearFilters()"><span class="material-symbols-outlined">filter_alt_off</span>Limpar</button>
+  </div>
+
+  <!-- Estado vazio: quando nenhum lançamento bate com os filtros -->
+  <div class="empty-state hidden" id="dashboard-empty">
+    <div class="empty-state-icon"><span class="material-symbols-outlined">manage_search</span></div>
+    <h3 class="section-title">Nenhum lançamento encontrado</h3>
+    <p class="page-subtitle max-w-xs mb-space-md">Nenhum registro corresponde aos filtros de método ou pessoa no mês selecionado.</p>
+    <button class="btn btn-primary" type="button" onclick="clearFilters()"><span class="material-symbols-outlined">restart_alt</span>Limpar filtros</button>
+  </div>
+
+  <div class="flex flex-col gap-space-lg" id="dashboard-content">
+    <!-- Resumo do mês -->
+    <div class="grid grid-cols-2 gap-space-sm">
+      <div class="stat-card">
+        <div class="flex items-center justify-between">
+          <span class="stat-label">A pagar</span>
+          <span class="stat-icon bg-error-container/30 text-error"><span class="material-symbols-outlined">trending_down</span></span>
+        </div>
+        <div class="amount text-on-surface">R$ 1.840,50</div>
+        <span class="badge badge-danger self-start">12 contas este mês</span>
+      </div>
+      <div class="stat-card">
+        <div class="flex items-center justify-between">
+          <span class="stat-label">A receber</span>
+          <span class="stat-icon bg-tertiary-container/30 text-tertiary"><span class="material-symbols-outlined">trending_up</span></span>
+        </div>
+        <div class="amount text-on-surface">R$ 3.250,00</div>
+        <span class="badge badge-success self-start">3 pessoas a liquidar</span>
+      </div>
+      <div class="stat-card bg-surface-container-high">
+        <div class="absolute -right-6 -bottom-6 w-24 h-24 rounded-full bg-primary/10 blur-xl pointer-events-none"></div>
+        <div class="flex items-center justify-between">
+          <span class="stat-label text-secondary">Saldo previsto</span>
+          <span class="stat-icon bg-primary-container/30 text-primary"><span class="material-symbols-outlined">account_balance_wallet</span></span>
+        </div>
+        <div class="amount text-tertiary">+R$ 1.409,50</div>
+        <span class="badge badge-success self-start"><span class="material-symbols-outlined">check_circle</span>Fluxo positivo</span>
+      </div>
+      <div class="stat-card">
+        <div class="flex items-center justify-between">
+          <span class="stat-label">Atividade</span>
+          <span class="stat-icon bg-surface-container-high text-on-surface-variant"><span class="material-symbols-outlined">receipt_long</span></span>
+        </div>
+        <div class="amount text-on-surface">15</div>
+        <span class="badge badge-primary self-start">lançamentos ativos</span>
+      </div>
+    </div>
+
+    <!-- Gastos por método -->
+    <section class="card flex flex-col gap-space-md">
+      <div class="section-header">
+        <h2 class="section-title flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[20px]">credit_card</span>Gastos por método</h2>
+        <span class="font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap">R$ 1.840,50</span>
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <div class="flex items-center gap-2 font-body-sm text-body-sm">
+          <span class="stat-icon w-6 h-6 bg-primary-container/20 text-primary"><span class="material-symbols-outlined text-[14px]">credit_card</span></span>
+          <span class="text-on-surface font-medium">Nubank</span>
+          <span class="ml-auto font-label-sm text-label-sm text-primary">61%</span>
+          <span class="text-on-surface font-semibold tabular-nums">R$ 1.120,00</span>
+        </div>
+        <div class="progress"><div class="progress-bar bg-primary" style="width: 61%;"></div></div>
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <div class="flex items-center gap-2 font-body-sm text-body-sm">
+          <span class="stat-icon w-6 h-6 bg-surface-container-high text-secondary"><span class="material-symbols-outlined text-[14px]">credit_card</span></span>
+          <span class="text-on-surface font-medium">Cartão Inter</span>
+          <span class="ml-auto font-label-sm text-label-sm text-secondary">26%</span>
+          <span class="text-on-surface font-semibold tabular-nums">R$ 480,00</span>
+        </div>
+        <div class="progress"><div class="progress-bar bg-secondary" style="width: 26%;"></div></div>
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <div class="flex items-center gap-2 font-body-sm text-body-sm">
+          <span class="stat-icon w-6 h-6 bg-tertiary-container/20 text-tertiary"><span class="material-symbols-outlined text-[14px]">payments</span></span>
+          <span class="text-on-surface font-medium">Pix Direto</span>
+          <span class="ml-auto font-label-sm text-label-sm text-tertiary">13%</span>
+          <span class="text-on-surface font-semibold tabular-nums">R$ 240,50</span>
+        </div>
+        <div class="progress"><div class="progress-bar bg-tertiary" style="width: 13%;"></div></div>
+      </div>
+    </section>
+
+    <!-- Recebimentos por pessoa -->
+    <section class="card flex flex-col gap-space-md">
+      <div class="section-header">
+        <h2 class="section-title flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[20px]">group</span>A receber por pessoa</h2>
+        <span class="badge badge-success">3 pendentes</span>
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <div class="flex items-center gap-space-sm">
+          <div class="avatar w-9 h-9 bg-primary/20 text-primary font-label-md text-label-md">JS</div>
+          <div class="min-w-0 flex-1">
+            <p class="card-title">João Silva</p>
+            <p class="card-subtitle">Aluguel &amp; Contas</p>
+          </div>
+          <div class="text-right">
+            <p class="font-label-lg text-label-lg text-tertiary font-semibold tabular-nums">+R$ 1.800,00</p>
+            <p class="card-subtitle">55% do total</p>
+          </div>
+        </div>
+        <div class="progress"><div class="progress-bar bg-tertiary" style="width: 55%;"></div></div>
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <div class="flex items-center gap-space-sm">
+          <div class="avatar w-9 h-9 bg-secondary-container text-secondary font-label-md text-label-md">MO</div>
+          <div class="min-w-0 flex-1">
+            <p class="card-title">Maria Oliveira</p>
+            <p class="card-subtitle">Viagem &amp; Parcelas</p>
+          </div>
+          <div class="text-right">
+            <p class="font-label-lg text-label-lg text-tertiary font-semibold tabular-nums">+R$ 950,00</p>
+            <p class="card-subtitle">29% do total</p>
+          </div>
+        </div>
+        <div class="progress"><div class="progress-bar bg-tertiary" style="width: 29%;"></div></div>
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <div class="flex items-center gap-space-sm">
+          <div class="avatar w-9 h-9 bg-tertiary/20 text-tertiary font-label-md text-label-md">PS</div>
+          <div class="min-w-0 flex-1">
+            <p class="card-title">Pedro Santos</p>
+            <p class="card-subtitle">Assinaturas Streaming</p>
+          </div>
+          <div class="text-right">
+            <p class="font-label-lg text-label-lg text-tertiary font-semibold tabular-nums">+R$ 500,00</p>
+            <p class="card-subtitle">16% do total</p>
+          </div>
+        </div>
+        <div class="progress"><div class="progress-bar bg-tertiary" style="width: 16%;"></div></div>
+      </div>
+    </section>
+  </div>
+
+</main>
+
+<nav id="bottom-nav" data-active="inicio"></nav>
+<script src="assets/app.js"></script>
+<script>
+  // Filtros: aqui entra a nova consulta à API a cada mudança
+  function removeFilter(button) {
+    button.closest('[data-filter-chip]').remove();
+    if (!document.querySelector('[data-filter-chip]')) document.getElementById('btn-clear-filters').remove();
+  }
+
+  function clearFilters() {
+    document.querySelectorAll('[data-filter-chip]').forEach((chip) => chip.remove());
+    document.getElementById('btn-clear-filters')?.remove();
+    document.getElementById('dashboard-empty').classList.add('hidden');
+    document.getElementById('dashboard-content').classList.remove('hidden');
+  }
+</script>
+</body>
+</html>

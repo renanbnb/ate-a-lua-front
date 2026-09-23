@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Métodos de pagamento · Até a Lua</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+<link rel="stylesheet" href="assets/app.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="assets/tailwind.config.js"></script>
+</head>
+<body>
+<main class="page">
+
+  <header class="page-header">
+    <div class="flex items-center gap-space-sm">
+      <button class="icon-btn" type="button" aria-label="Voltar" data-back><span class="material-symbols-outlined">arrow_back_ios_new</span></button>
+      <h1 class="page-title">Métodos de pagamento</h1>
+      <button class="icon-btn ml-auto" type="button" aria-label="Ajuda"><span class="material-symbols-outlined">help_outline</span></button>
+    </div>
+    <p class="page-subtitle">Gerencie as contas e cartões para suas assinaturas e parcelas no Até a Lua.</p>
+  </header>
+
+  <button class="btn btn-primary w-full" type="button" data-open-sheet="sheet-method">
+    <span class="material-symbols-outlined">add_circle</span>Adicionar método
+  </button>
+
+  <section class="flex flex-col gap-space-sm">
+    <div class="section-header">
+      <h2 class="section-title">Métodos personalizados</h2>
+      <span class="badge">3 ativos</span>
+    </div>
+
+    <div class="flex flex-col gap-space-sm" id="methods-list">
+      <!-- Método: Nubank -->
+      <article class="card flex flex-col gap-space-sm">
+        <div class="flex items-center gap-space-sm">
+          <div class="card-icon"><span class="material-symbols-outlined">account_balance</span></div>
+          <div class="min-w-0 flex-1">
+            <div class="flex items-center gap-2">
+              <h3 class="card-title">Nubank</h3>
+              <span class="font-label-sm text-label-sm text-on-surface-variant font-mono">•••• 4092</span>
+            </div>
+            <p class="card-subtitle">Conta Principal / Débito</p>
+          </div>
+          <button class="icon-btn-sm" type="button" aria-label="Editar Nubank"><span class="material-symbols-outlined">edit</span></button>
+          <button class="icon-btn-sm icon-btn-danger" type="button" aria-label="Excluir Nubank"><span class="material-symbols-outlined">delete</span></button>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="tag text-primary">Débito &amp; PIX</span>
+          <span class="card-subtitle flex items-center gap-1"><span class="dot text-secondary"></span>5 assinaturas vinculadas</span>
+          <span class="ml-auto font-label-sm text-label-sm text-tertiary flex items-center gap-0.5"><span class="material-symbols-outlined text-[14px]">sync_saved_locally</span>Automático</span>
+        </div>
+      </article>
+
+      <!-- Método: Itaú -->
+      <article class="card flex flex-col gap-space-sm">
+        <div class="flex items-center gap-space-sm">
+          <div class="card-icon text-secondary"><span class="material-symbols-outlined">credit_card</span></div>
+          <div class="min-w-0 flex-1">
+            <div class="flex items-center gap-2">
+              <h3 class="card-title">Itaú Mastercard Black</h3>
+              <span class="font-label-sm text-label-sm text-on-surface-variant font-mono whitespace-nowrap">•••• 8814</span>
+            </div>
+            <p class="card-subtitle">Cartão de Crédito</p>
+          </div>
+          <button class="icon-btn-sm" type="button" aria-label="Editar Itaú Mastercard Black"><span class="material-symbols-outlined">edit</span></button>
+          <button class="icon-btn-sm icon-btn-danger" type="button" aria-label="Excluir Itaú Mastercard Black"><span class="material-symbols-outlined">delete</span></button>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="tag text-primary">Crédito</span>
+          <span class="card-subtitle flex items-center gap-1"><span class="dot text-primary"></span>3 parcelas ativas</span>
+          <span class="ml-auto font-label-sm text-label-sm text-on-surface-variant">Vence dia 15</span>
+        </div>
+      </article>
+
+      <!-- Método: Dinheiro -->
+      <article class="card flex flex-col gap-space-sm">
+        <div class="flex items-center gap-space-sm">
+          <div class="card-icon text-tertiary"><span class="material-symbols-outlined">payments</span></div>
+          <div class="min-w-0 flex-1">
+            <div class="flex items-center gap-2">
+              <h3 class="card-title">Dinheiro Físico</h3>
+              <span class="font-label-sm text-label-sm text-tertiary">Espécie</span>
+            </div>
+            <p class="card-subtitle">Carteira de Despesas Rápidas</p>
+          </div>
+          <button class="icon-btn-sm" type="button" aria-label="Editar Dinheiro Físico"><span class="material-symbols-outlined">edit</span></button>
+          <button class="icon-btn-sm icon-btn-danger" type="button" aria-label="Excluir Dinheiro Físico"><span class="material-symbols-outlined">delete</span></button>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="tag text-tertiary">Caixa Físico</span>
+          <span class="card-subtitle flex items-center gap-1"><span class="dot text-tertiary"></span>Lançamentos manuais</span>
+          <span class="ml-auto font-label-sm text-label-sm text-on-surface-variant">Reserva local</span>
+        </div>
+      </article>
+    </div>
+
+    <!-- Estado vazio: mostrar quando a lista vier vazia (e esconder #methods-list) -->
+    <div class="empty-state hidden" id="methods-empty">
+      <div class="empty-state-icon"><span class="material-symbols-outlined">credit_card_off</span></div>
+      <h3 class="section-title">Nenhum método personalizado</h3>
+      <p class="page-subtitle max-w-xs mb-space-md">Suas assinaturas e parcelas continuarão utilizando o <strong class="text-on-surface">Pix Nativo</strong> automaticamente.</p>
+      <button class="btn btn-primary" type="button" data-open-sheet="sheet-method"><span class="material-symbols-outlined">add_circle</span>Adicionar primeiro método</button>
+    </div>
+  </section>
+
+</main>
+
+<!-- Sheet: novo método -->
+<div class="sheet-backdrop" id="sheet-method">
+  <form class="sheet" id="form-method">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <div>
+        <h2 class="sheet-title">Novo método</h2>
+        <p class="page-subtitle">Adicione para vincular a compras e parcelas</p>
+      </div>
+      <button class="icon-btn" type="button" aria-label="Fechar" data-close-sheet><span class="material-symbols-outlined">close</span></button>
+    </div>
+
+    <div class="field">
+      <span class="label">Tipo de método</span>
+      <div class="segmented">
+        <button type="button" aria-pressed="true" data-type="credit"><span class="material-symbols-outlined">credit_card</span>Crédito</button>
+        <button type="button" aria-pressed="false" data-type="account"><span class="material-symbols-outlined">account_balance</span>Débito</button>
+        <button type="button" aria-pressed="false" data-type="cash"><span class="material-symbols-outlined">payments</span>Dinheiro</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label" for="method-name">Nome identificador</label>
+      <input class="input" id="method-name" type="text" placeholder="Ex: Cartão Inter, Vale Alimentação...">
+    </div>
+
+    <div class="grid grid-cols-2 gap-space-sm">
+      <div class="field">
+        <label class="label" for="method-last-digits">Final do cartão</label>
+        <input class="input font-mono" id="method-last-digits" type="text" inputmode="numeric" maxlength="4" placeholder="1234">
+      </div>
+      <div class="field">
+        <label class="label" for="method-due-day">Dia de vencimento</label>
+        <input class="input" id="method-due-day" type="number" min="1" max="31" placeholder="Ex: 10">
+      </div>
+    </div>
+
+    <div class="sheet-actions">
+      <button class="btn btn-secondary" type="button" data-close-sheet>Cancelar</button>
+      <button class="btn btn-primary" type="submit"><span class="material-symbols-outlined">check</span>Salvar</button>
+    </div>
+  </form>
+</div>
+
+<nav id="bottom-nav" data-active="metodos"></nav>
+<script src="assets/app.js"></script>
+<script>
+  // Salvar: aqui entra a chamada à API
+  document.getElementById('form-method').addEventListener('submit', (e) => {
+    e.preventDefault();
+    closeSheet('sheet-method');
+    e.target.reset();
+    showToast('Método salvo com sucesso!');
+  });
+</script>
+</body>
+</html>

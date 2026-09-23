@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Assinaturas · Até a Lua</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+<link rel="stylesheet" href="assets/app.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="assets/tailwind.config.js"></script>
+</head>
+<body>
+<main class="page">
+
+  <header class="page-header">
+    <div class="flex items-center gap-space-sm">
+      <button class="icon-btn" type="button" aria-label="Voltar" data-back><span class="material-symbols-outlined">arrow_back_ios_new</span></button>
+      <h1 class="page-title">Assinaturas</h1>
+      <button class="icon-btn ml-auto" type="button" aria-label="Ajuda"><span class="material-symbols-outlined">help_outline</span></button>
+    </div>
+    <p class="page-subtitle">Controle de despesas e recebimentos recorrentes com renovação automática.</p>
+  </header>
+
+  <!-- Resumo do mês -->
+  <div class="grid grid-cols-2 gap-space-sm">
+    <div class="stat-card">
+      <div class="flex items-center justify-between">
+        <span class="stat-label">Saídas fixas</span>
+        <span class="stat-icon bg-error-container/30 text-error"><span class="material-symbols-outlined">arrow_downward</span></span>
+      </div>
+      <div class="amount text-error">-R$ 91,90<span class="font-label-sm text-label-sm text-on-surface-variant font-normal">/mês</span></div>
+      <span class="badge badge-danger self-start"><span class="dot"></span>2 despesas</span>
+    </div>
+    <div class="stat-card">
+      <div class="flex items-center justify-between">
+        <span class="stat-label">Entradas fixas</span>
+        <span class="stat-icon bg-tertiary-container/30 text-tertiary"><span class="material-symbols-outlined">arrow_upward</span></span>
+      </div>
+      <div class="amount text-tertiary">+R$ 1.250,00<span class="font-label-sm text-label-sm text-on-surface-variant font-normal">/mês</span></div>
+      <span class="badge badge-success self-start"><span class="dot"></span>2 recebimentos</span>
+    </div>
+  </div>
+
+  <button class="btn btn-primary w-full" type="button" onclick="openSubscriptionSheet()">
+    <span class="material-symbols-outlined">add_circle</span>Adicionar assinatura
+  </button>
+
+  <section class="flex flex-col gap-space-sm">
+    <div class="section-header">
+      <h2 class="section-title">Assinaturas ativas</h2>
+      <span class="badge" id="counter-badge">2 ativas</span>
+    </div>
+
+    <div class="flex flex-col gap-space-sm" id="subscriptions-list">
+      <!-- Assinatura (despesa): Spotify -->
+      <article class="card flex flex-col gap-space-sm transition-all duration-200" id="sub-card-2">
+        <div class="flex items-start gap-space-sm">
+          <div class="card-icon text-error"><span class="material-symbols-outlined">music_note</span></div>
+          <div class="min-w-0 flex-1">
+            <h3 class="card-title">Spotify Família</h3>
+            <p class="card-subtitle flex items-center gap-1 mt-0.5"><span class="material-symbols-outlined text-[14px]">credit_card</span>Inter Visa (Final 1209)</p>
+          </div>
+          <div class="flex flex-col items-end">
+            <span class="amount text-error">-R$ 34,90</span>
+            <span class="font-label-sm text-label-sm text-on-surface-variant">Mensal</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="badge badge-danger">Despesa</span>
+          <span class="card-subtitle">Próxima: 24 de outubro</span>
+          <div class="ml-auto flex gap-1">
+            <button class="icon-btn-sm" type="button" aria-label="Editar Spotify Família" onclick="editSubscription('Spotify Família', '34,90', false, 'Inter Visa (Final 1209)', 'Mensal', '2026-10-24')"><span class="material-symbols-outlined">edit</span></button>
+            <button class="icon-btn-sm icon-btn-danger" type="button" aria-label="Excluir Spotify Família" onclick="deleteSubscription('sub-card-2', 'Spotify Família')"><span class="material-symbols-outlined">delete</span></button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Assinatura (recebimento): Aluguel da vaga -->
+      <article class="card flex flex-col gap-space-sm transition-all duration-200" id="sub-card-3">
+        <div class="flex items-start gap-space-sm">
+          <div class="card-icon bg-tertiary-container/30 text-tertiary"><span class="material-symbols-outlined">garage</span></div>
+          <div class="min-w-0 flex-1">
+            <h3 class="card-title">Aluguel Vaga Garagem</h3>
+            <p class="card-subtitle flex items-center gap-1 mt-0.5"><span class="material-symbols-outlined text-[14px]">qr_code_2</span>Pix (Padrão do Sistema)</p>
+          </div>
+          <div class="flex flex-col items-end">
+            <span class="amount text-tertiary">+R$ 350,00</span>
+            <span class="font-label-sm text-label-sm text-on-surface-variant">Mensal</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="badge badge-success">Recebimento</span>
+          <span class="card-subtitle">Próxima: 05 de novembro</span>
+          <div class="ml-auto flex gap-1">
+            <button class="icon-btn-sm" type="button" aria-label="Editar Aluguel Vaga Garagem" onclick="editSubscription('Aluguel Vaga Garagem', '350,00', true, 'Pix (Padrão do Sistema)', 'Mensal', '2026-11-05')"><span class="material-symbols-outlined">edit</span></button>
+            <button class="icon-btn-sm icon-btn-danger" type="button" aria-label="Excluir Aluguel Vaga Garagem" onclick="deleteSubscription('sub-card-3', 'Aluguel Vaga Garagem')"><span class="material-symbols-outlined">delete</span></button>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Estado vazio: aparece quando a lista fica vazia -->
+    <div class="empty-state hidden" id="subscriptions-empty">
+      <div class="empty-state-icon"><span class="material-symbols-outlined">all_inclusive</span></div>
+      <h3 class="section-title">Nenhuma assinatura ativa</h3>
+      <p class="page-subtitle max-w-xs mb-space-md">Cadastre despesas fixas (streamings, softwares, condomínio) e recebimentos recorrentes (aluguéis, mentorias) para prever seu saldo.</p>
+      <button class="btn btn-primary" type="button" onclick="openSubscriptionSheet()"><span class="material-symbols-outlined">add_circle</span>Adicionar primeira assinatura</button>
+    </div>
+  </section>
+
+</main>
+
+<!-- Sheet: nova / editar assinatura -->
+<div class="sheet-backdrop" id="sheet-subscription">
+  <form class="sheet" id="form-subscription" novalidate>
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <div>
+        <h2 class="sheet-title" id="sheet-title">Nova assinatura</h2>
+        <p class="page-subtitle">Configure os dados do ciclo recorrente</p>
+      </div>
+      <button class="icon-btn" type="button" aria-label="Fechar" data-close-sheet><span class="material-symbols-outlined">close</span></button>
+    </div>
+
+    <!-- Despesa x Recebimento -->
+    <div class="card bg-surface-container flex items-center gap-space-sm">
+      <div class="stat-icon w-10 h-10 rounded-xl bg-surface-container-highest text-error" id="nature-icon-box"><span class="material-symbols-outlined" id="nature-icon">south_west</span></div>
+      <div class="flex-1">
+        <p class="font-label-lg text-label-lg text-on-surface font-semibold" id="nature-title">Despesa</p>
+        <p class="card-subtitle" id="nature-sub">Valor debitado automaticamente</p>
+      </div>
+      <label class="switch" aria-label="É um recebimento?">
+        <input class="peer sr-only" id="input-is-income" type="checkbox" onchange="setIncomeMode(this.checked)">
+        <span class="switch-track"></span>
+      </label>
+    </div>
+
+    <div class="field">
+      <div class="flex items-center justify-between">
+        <label class="label" for="sub-name">Nome da assinatura *</label>
+        <span class="field-error hidden" id="error-name">Campo obrigatório</span>
+      </div>
+      <input class="input" id="sub-name" type="text" placeholder="Ex: Academia Smart Fit">
+    </div>
+
+    <div class="field">
+      <div class="flex items-center justify-between">
+        <label class="label" for="sub-value">Valor recorrente *</label>
+        <span class="field-error hidden" id="error-value">Informe o valor</span>
+      </div>
+      <div class="relative">
+        <span class="absolute left-4 top-1/2 -translate-y-1/2 font-label-lg text-label-lg font-semibold text-error" id="value-symbol">-R$</span>
+        <input class="input pl-14 font-semibold" id="sub-value" type="text" inputmode="numeric" placeholder="119,90" oninput="formatCurrencyInput(this)">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label" for="sub-method">Método de pagamento *</label>
+      <div class="select">
+        <select class="input" id="sub-method">
+          <option>Pix (Padrão do Sistema)</option>
+          <option>Nubank Mastercard (Final 8841)</option>
+          <option>Inter Visa (Final 1209)</option>
+          <option>Dinheiro em espécie</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-space-sm">
+      <div class="field">
+        <label class="label" for="sub-period">Periodicidade *</label>
+        <div class="select">
+          <select class="input" id="sub-period">
+            <option selected>Mensal</option>
+            <option>Diário</option>
+            <option>Semanal</option>
+            <option>Trimestral</option>
+            <option>Semestral</option>
+            <option>Anual</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label" for="sub-date">Próxima cobrança *</label>
+        <input class="input" id="sub-date" type="date" value="2026-10-10">
+      </div>
+    </div>
+
+    <p class="hint"><span class="material-symbols-outlined">info</span>Será lançado na timeline no dia de renovação cadastrado.</p>
+
+    <div class="sheet-actions">
+      <button class="btn btn-secondary" type="button" data-close-sheet>Cancelar</button>
+      <button class="btn btn-primary" type="submit" id="submit-btn"><span class="material-symbols-outlined">check</span><span id="submit-label">Salvar</span></button>
+    </div>
+  </form>
+</div>
+
+<nav id="bottom-nav" data-active="assinaturas"></nav>
+<script src="assets/app.js"></script>
+<script>
+  const form = document.getElementById('form-subscription');
+
+  function openSubscriptionSheet() {
+    form.reset();
+    document.getElementById('sheet-title').textContent = 'Nova assinatura';
+    document.getElementById('submit-label').textContent = 'Salvar';
+    setIncomeMode(false);
+    clearErrors();
+    openSheet('sheet-subscription');
+  }
+
+  function editSubscription(name, value, isIncome, method, period, date) {
+    openSubscriptionSheet();
+    document.getElementById('sheet-title').textContent = 'Editar assinatura';
+    document.getElementById('submit-label').textContent = 'Salvar alterações';
+    document.getElementById('sub-name').value = name;
+    document.getElementById('sub-value').value = value;
+    document.getElementById('input-is-income').checked = isIncome;
+    document.getElementById('sub-method').value = method;
+    document.getElementById('sub-period').value = period;
+    document.getElementById('sub-date').value = date;
+    setIncomeMode(isIncome);
+  }
+
+  // Despesa (vermelho) x Recebimento (verde)
+  function setIncomeMode(isIncome) {
+    const iconBox = document.getElementById('nature-icon-box');
+    iconBox.classList.toggle('text-error', !isIncome);
+    iconBox.classList.toggle('text-tertiary', isIncome);
+    iconBox.classList.toggle('bg-tertiary-container/30', isIncome);
+    document.getElementById('nature-icon').textContent = isIncome ? 'north_east' : 'south_west';
+    document.getElementById('nature-title').textContent = isIncome ? 'Recebimento' : 'Despesa';
+    document.getElementById('nature-sub').textContent = isIncome ? 'Crédito agendado no seu saldo' : 'Valor debitado automaticamente';
+    const symbol = document.getElementById('value-symbol');
+    symbol.textContent = isIncome ? '+R$' : '-R$';
+    symbol.classList.toggle('text-error', !isIncome);
+    symbol.classList.toggle('text-tertiary', isIncome);
+    const submit = document.getElementById('submit-btn');
+    submit.classList.toggle('btn-primary', !isIncome);
+    submit.classList.toggle('btn-success', isIncome);
+  }
+
+  function clearErrors() {
+    document.getElementById('error-name').classList.add('hidden');
+    document.getElementById('error-value').classList.add('hidden');
+  }
+
+  // Salvar: aqui entra a chamada à API
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const nameMissing = !document.getElementById('sub-name').value.trim();
+    const valueMissing = !document.getElementById('sub-value').value.trim();
+    document.getElementById('error-name').classList.toggle('hidden', !nameMissing);
+    document.getElementById('error-value').classList.toggle('hidden', !valueMissing);
+    if (nameMissing || valueMissing) return;
+    closeSheet('sheet-subscription');
+    showToast('Assinatura salva com sucesso!');
+  });
+
+  // Excluir: aqui entra a chamada à API
+  function deleteSubscription(cardId, name) {
+    const card = document.getElementById(cardId);
+    card.style.opacity = '0';
+    card.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+      card.remove();
+      showToast(`"${name}" removida com sucesso!`, 'delete');
+      const remaining = document.querySelectorAll('#subscriptions-list > article').length;
+      document.getElementById('counter-badge').textContent = `${remaining} ativas`;
+      document.getElementById('subscriptions-list').classList.toggle('hidden', remaining === 0);
+      document.getElementById('subscriptions-empty').classList.toggle('hidden', remaining > 0);
+    }, 200);
+  }
+
+  // Máscara de valor: 11990 -> 119,90
+  function formatCurrencyInput(input) {
+    const digits = input.value.replace(/\D/g, '');
+    input.value = digits ? (parseInt(digits, 10) / 100).toFixed(2).replace('.', ',') : '';
+  }
+</script>
+</body>
+</html>

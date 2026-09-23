@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Parcelamentos · Até a Lua</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+<link rel="stylesheet" href="assets/app.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="assets/tailwind.config.js"></script>
+</head>
+<body>
+<main class="page">
+
+  <header class="page-header">
+    <div class="flex items-center gap-space-sm">
+      <button class="icon-btn" type="button" aria-label="Voltar" data-back><span class="material-symbols-outlined">arrow_back_ios_new</span></button>
+      <h1 class="page-title">Parcelamentos</h1>
+      <button class="icon-btn ml-auto" type="button" aria-label="Ajuda"><span class="material-symbols-outlined">help_outline</span></button>
+    </div>
+    <p class="page-subtitle">Gerencie compras parceladas e valores a receber.</p>
+  </header>
+
+  <!-- Resumo do mês -->
+  <div class="grid grid-cols-2 gap-space-sm">
+    <div class="stat-card">
+      <div class="flex items-center justify-between">
+        <span class="stat-label">A pagar este mês</span>
+        <span class="stat-icon bg-error-container/30 text-error"><span class="material-symbols-outlined">trending_down</span></span>
+      </div>
+      <div class="amount text-on-surface">R$ 870,00</div>
+      <span class="badge badge-danger self-start"><span class="dot"></span>4 despesas</span>
+    </div>
+    <div class="stat-card">
+      <div class="flex items-center justify-between">
+        <span class="stat-label">A receber este mês</span>
+        <span class="stat-icon bg-tertiary-container/30 text-tertiary"><span class="material-symbols-outlined">trending_up</span></span>
+      </div>
+      <div class="amount text-tertiary">+R$ 340,00</div>
+      <span class="badge badge-success self-start"><span class="dot"></span>1 recebimento</span>
+    </div>
+  </div>
+
+  <button class="btn btn-primary w-full" type="button" data-open-sheet="sheet-parcel">
+    <span class="material-symbols-outlined">add_circle</span>Adicionar parcelamento
+  </button>
+
+  <section class="flex flex-col gap-space-sm">
+    <div class="section-header">
+      <h2 class="section-title">Parcelamentos ativos</h2>
+      <span class="badge">3 ativos</span>
+    </div>
+
+    <!-- Filtro: data-filter casa com data-kind dos cards -->
+    <div class="segmented" id="parcel-filter">
+      <button type="button" aria-pressed="true" data-filter="all">Todos (3)</button>
+      <button type="button" aria-pressed="false" data-filter="formal">Formais (2)</button>
+      <button type="button" aria-pressed="false" data-filter="informal">Informais (1)</button>
+    </div>
+
+    <div class="flex flex-col gap-space-sm" id="parcels-list">
+      <!-- Parcelamento formal (despesa): Notebook -->
+      <article class="card flex flex-col gap-space-sm" data-kind="formal">
+        <div class="flex items-start gap-space-sm">
+          <div class="card-icon"><span class="material-symbols-outlined">laptop_mac</span></div>
+          <div class="min-w-0 flex-1">
+            <h3 class="card-title">Notebook Dell G15</h3>
+            <div class="flex items-center gap-1.5 mt-1">
+              <span class="tag"><span class="material-symbols-outlined">credit_card</span>Cartão Nubank</span>
+              <span class="card-subtitle">Formal</span>
+            </div>
+          </div>
+          <div class="flex flex-col items-end">
+            <span class="amount text-on-surface">R$ 350,00</span>
+            <span class="font-label-sm text-label-sm text-on-surface-variant">/ mês</span>
+          </div>
+        </div>
+        <div class="flex justify-between font-label-sm text-label-sm">
+          <span class="text-on-surface-variant">3 de 10 parcelas</span>
+          <span class="text-primary">30% quitado (R$ 1.050 / R$ 3.500)</span>
+        </div>
+        <div class="progress"><div class="progress-bar bg-primary-container" style="width: 30%;"></div></div>
+        <div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+          <span>Próxima fatura: <strong class="text-on-surface">10/10/2026</strong></span>
+          <span class="badge badge-danger">Despesa</span>
+        </div>
+      </article>
+
+      <!-- Parcelamento informal (recebimento): Empréstimo -->
+      <article class="card flex flex-col gap-space-sm" data-kind="informal">
+        <div class="flex items-start gap-space-sm">
+          <div class="card-icon bg-tertiary-container/30 text-tertiary"><span class="material-symbols-outlined">handshake</span></div>
+          <div class="min-w-0 flex-1">
+            <h3 class="card-title">Empréstimo Viagem</h3>
+            <div class="flex items-center gap-1.5 mt-1">
+              <span class="tag"><span class="material-symbols-outlined">person</span>João Silva</span>
+              <span class="card-subtitle">Informal</span>
+            </div>
+          </div>
+          <div class="flex flex-col items-end">
+            <span class="amount text-tertiary">+R$ 170,00</span>
+            <span class="font-label-sm text-label-sm text-on-surface-variant">/ mês</span>
+          </div>
+        </div>
+        <div class="flex justify-between font-label-sm text-label-sm">
+          <span class="text-tertiary">2 de 5 parcelas pagas</span>
+          <span class="text-on-surface-variant">R$ 340 de R$ 850</span>
+        </div>
+        <div class="progress"><div class="progress-bar bg-tertiary" style="width: 40%;"></div></div>
+        <div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+          <span>Próximo recebimento: <strong class="text-tertiary">15/10/2026</strong></span>
+          <span class="badge badge-success">Recebimento</span>
+        </div>
+      </article>
+
+      <!-- Parcelamento formal (despesa): Smartphone -->
+      <article class="card flex flex-col gap-space-sm" data-kind="formal">
+        <div class="flex items-start gap-space-sm">
+          <div class="card-icon"><span class="material-symbols-outlined">smartphone</span></div>
+          <div class="min-w-0 flex-1">
+            <h3 class="card-title">Smartphone Galaxy S24</h3>
+            <div class="flex items-center gap-1.5 mt-1">
+              <span class="tag"><span class="material-symbols-outlined">credit_card</span>Cartão Itaú Black</span>
+              <span class="card-subtitle">Formal</span>
+            </div>
+          </div>
+          <div class="flex flex-col items-end">
+            <span class="amount text-on-surface">R$ 289,90</span>
+            <span class="font-label-sm text-label-sm text-on-surface-variant">/ mês</span>
+          </div>
+        </div>
+        <div class="flex justify-between font-label-sm text-label-sm">
+          <span class="text-on-surface-variant">8 de 12 parcelas</span>
+          <span class="text-primary">66% quitado · resta R$ 1.159,60</span>
+        </div>
+        <div class="progress"><div class="progress-bar bg-primary-container" style="width: 66%;"></div></div>
+        <div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+          <span>Próxima fatura: <strong class="text-on-surface">22/10/2026</strong></span>
+          <span class="badge badge-danger">Despesa</span>
+        </div>
+      </article>
+    </div>
+
+    <!-- Estado vazio: mostrar quando a lista vier vazia (e esconder #parcels-list) -->
+    <div class="empty-state hidden" id="parcels-empty">
+      <div class="empty-state-icon"><span class="material-symbols-outlined">rocket_launch</span></div>
+      <h3 class="section-title">Nenhum parcelamento encontrado</h3>
+      <p class="page-subtitle max-w-xs mb-space-md">Controle cada parcela de compras no cartão ou acertos com amigos sem perder o fio da meada.</p>
+      <button class="btn btn-primary" type="button" data-open-sheet="sheet-parcel"><span class="material-symbols-outlined">add_circle</span>Cadastrar primeiro parcelamento</button>
+    </div>
+  </section>
+
+</main>
+
+<!-- Sheet: novo parcelamento -->
+<div class="sheet-backdrop" id="sheet-parcel">
+  <form class="sheet" id="form-parcel">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <div>
+        <h2 class="sheet-title">Novo parcelamento</h2>
+        <p class="page-subtitle">Configuração inteligente com cálculo dinâmico</p>
+      </div>
+      <button class="icon-btn" type="button" aria-label="Fechar" data-close-sheet><span class="material-symbols-outlined">close</span></button>
+    </div>
+
+    <div class="field">
+      <span class="label">Classificação do vínculo</span>
+      <div class="segmented" id="kind-selector">
+        <button type="button" aria-pressed="true" data-kind="formal"><span class="material-symbols-outlined">credit_card</span>Formal (cartão/loja)</button>
+        <button type="button" aria-pressed="false" data-kind="informal"><span class="material-symbols-outlined">group</span>Informal (pessoa)</button>
+      </div>
+    </div>
+
+    <!-- Despesa x Recebimento -->
+    <div class="card bg-surface-container flex items-center gap-space-sm">
+      <div class="stat-icon w-10 h-10 rounded-xl bg-surface-container-highest text-error" id="nature-icon-box"><span class="material-symbols-outlined" id="nature-icon">shopping_bag</span></div>
+      <div class="flex-1">
+        <p class="font-label-lg text-label-lg text-on-surface font-semibold" id="nature-title">Despesa</p>
+        <p class="card-subtitle" id="nature-sub">Você está pagando</p>
+      </div>
+      <label class="switch" aria-label="É um recebimento?">
+        <input class="peer sr-only" id="income-toggle" type="checkbox">
+        <span class="switch-track"></span>
+      </label>
+    </div>
+
+    <div class="field">
+      <label class="label" for="input-desc">Descrição</label>
+      <input class="input" id="input-desc" type="text" placeholder="Ex: iPhone 15 Pro, Empréstimo..." value="Macbook Air M3">
+    </div>
+
+    <!-- Cálculo inteligente: preencha 2 campos e o 3º calcula -->
+    <div class="flex flex-col gap-space-sm">
+      <div class="flex items-center justify-between flex-wrap gap-1">
+        <span class="font-label-lg text-label-lg text-on-surface font-semibold flex items-center gap-1.5"><span class="material-symbols-outlined text-primary text-[18px]">calculate</span>Cálculo dos valores</span>
+        <span class="badge badge-primary">Preencha 2, o 3º calcula</span>
+      </div>
+      <div class="field" id="wrap-total">
+        <div class="flex items-center justify-between">
+          <label class="label" for="calc-total">Valor total (R$)</label>
+          <span class="badge badge-primary hidden" id="badge-total"><span class="material-symbols-outlined">lock</span>Calculado</span>
+        </div>
+        <input class="input" id="calc-total" type="number" step="0.01" placeholder="0,00" value="1000">
+      </div>
+      <div class="field" id="wrap-count">
+        <div class="flex items-center justify-between">
+          <label class="label" for="calc-count">Quantidade de parcelas</label>
+          <span class="badge badge-primary hidden" id="badge-count"><span class="material-symbols-outlined">lock</span>Calculado</span>
+        </div>
+        <input class="input" id="calc-count" type="number" min="1" max="120" placeholder="Ex: 10" value="10">
+      </div>
+      <div class="field" id="wrap-installment">
+        <div class="flex items-center justify-between">
+          <label class="label" for="calc-installment">Valor da parcela (R$)</label>
+          <span class="badge badge-primary hidden" id="badge-installment"><span class="material-symbols-outlined">lock</span>Calculado</span>
+        </div>
+        <input class="input" id="calc-installment" type="number" step="0.01" placeholder="0,00">
+      </div>
+    </div>
+
+    <div class="field" id="group-formal">
+      <label class="label" for="select-method">Método de pagamento</label>
+      <div class="select">
+        <select class="input" id="select-method">
+          <option value="pix">Pix (Padrão)</option>
+          <option value="nubank" selected>Cartão Nubank Ultravioleta</option>
+          <option value="itau">Cartão Itaú Personnalité Black</option>
+          <option value="dinheiro">Dinheiro em Espécie</option>
+        </select>
+      </div>
+    </div>
+    <div class="field hidden" id="group-informal">
+      <label class="label" for="select-person">Vincular a uma pessoa</label>
+      <div class="select">
+        <select class="input" id="select-person">
+          <option value="joao" selected>João Silva (Amigo)</option>
+          <option value="maria">Maria Oliveira (Família)</option>
+          <option value="pedro">Pedro Santos (Colega)</option>
+          <option value="novo">+ Cadastrar nova pessoa</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="flex items-center justify-between">
+        <label class="label" for="input-start-date">Data da 1ª parcela</label>
+        <span class="font-label-sm text-label-sm text-on-surface-variant/70">Histórico ou futuro</span>
+      </div>
+      <input class="input" id="input-start-date" type="date" value="2026-10-10">
+      <p class="hint"><span class="material-symbols-outlined">info</span>Parcelamentos antigos podem ser cadastrados, desde que ainda tenham parcelas a vencer.</p>
+      <p class="hint hint-danger hidden" id="error-date"><span class="material-symbols-outlined">warning</span><span><strong>Atenção:</strong> todas as parcelas já teriam terminado antes de hoje.</span></p>
+    </div>
+
+    <div class="sheet-actions">
+      <button class="btn btn-secondary" type="button" data-close-sheet>Cancelar</button>
+      <button class="btn btn-primary" type="submit"><span class="material-symbols-outlined">check</span>Salvar</button>
+    </div>
+  </form>
+</div>
+
+<nav id="bottom-nav" data-active="parcelas"></nav>
+<script src="assets/app.js"></script>
+<script>
+  const $ = (id) => document.getElementById(id);
+
+  // Filtro Todos / Formais / Informais
+  $('parcel-filter').addEventListener('click', (e) => {
+    const filter = e.target.closest('button')?.dataset.filter;
+    if (!filter) return;
+    for (const card of $('parcels-list').children) {
+      card.classList.toggle('hidden', filter !== 'all' && card.dataset.kind !== filter);
+    }
+  });
+
+  // Formal (método de pagamento) x Informal (pessoa)
+  $('kind-selector').addEventListener('click', (e) => {
+    const kind = e.target.closest('button')?.dataset.kind;
+    if (!kind) return;
+    $('group-formal').classList.toggle('hidden', kind !== 'formal');
+    $('group-informal').classList.toggle('hidden', kind !== 'informal');
+  });
+
+  // Despesa (vermelho) x Recebimento (verde)
+  $('income-toggle').addEventListener('change', (e) => {
+    const isIncome = e.target.checked;
+    $('nature-icon-box').classList.toggle('text-error', !isIncome);
+    $('nature-icon-box').classList.toggle('text-tertiary', isIncome);
+    $('nature-icon-box').classList.toggle('bg-tertiary-container/30', isIncome);
+    $('nature-icon').textContent = isIncome ? 'arrow_downward' : 'shopping_bag';
+    $('nature-title').textContent = isIncome ? 'Recebimento' : 'Despesa';
+    $('nature-sub').textContent = isIncome ? 'Você vai receber' : 'Você está pagando';
+  });
+
+  // Cálculo inteligente: os 2 últimos campos editados definem o 3º, que fica bloqueado.
+  // Tocar no campo bloqueado libera ele (e bloqueia o mais antigo).
+  const calcFields = {
+    total: [$('calc-total'), $('badge-total')],
+    count: [$('calc-count'), $('badge-count')],
+    installment: [$('calc-installment'), $('badge-installment')],
+  };
+  let edited = ['total', 'count'];
+
+  function recalc() {
+    const target = Object.keys(calcFields).find((k) => !edited.includes(k));
+    const total = parseFloat($('calc-total').value);
+    const count = parseInt($('calc-count').value);
+    const installment = parseFloat($('calc-installment').value);
+    if (target === 'installment' && total && count) $('calc-installment').value = (total / count).toFixed(2);
+    if (target === 'total' && count && installment) $('calc-total').value = (count * installment).toFixed(2);
+    if (target === 'count' && total && installment) $('calc-count').value = Math.ceil(total / installment);
+
+    for (const [key, [input, badge]] of Object.entries(calcFields)) {
+      const locked = key === target;
+      input.readOnly = locked;
+      input.classList.toggle('text-primary', locked);
+      input.classList.toggle('font-semibold', locked);
+      input.classList.toggle('bg-primary-container/10', locked);
+      badge.classList.toggle('hidden', !locked);
+    }
+  }
+
+  function markEdited(key) {
+    const other = edited.includes(key) ? edited.find((k) => k !== key) : edited[1];
+    edited = [other, key];
+  }
+
+  for (const [key, [input]] of Object.entries(calcFields)) {
+    input.addEventListener('focus', () => { if (input.readOnly) { markEdited(key); recalc(); } });
+    input.addEventListener('input', () => { markEdited(key); recalc(); });
+  }
+  recalc();
+
+  // Aviso se a última parcela já passou
+  function checkDate() {
+    const end = new Date($('input-start-date').value);
+    end.setMonth(end.getMonth() + (parseInt($('calc-count').value) || 1));
+    $('error-date').classList.toggle('hidden', end >= new Date());
+  }
+  $('input-start-date').addEventListener('change', checkDate);
+  $('calc-count').addEventListener('input', checkDate);
+
+  // Salvar: aqui entra a chamada à API
+  $('form-parcel').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const description = $('input-desc').value.trim() || 'Novo parcelamento';
+    closeSheet('sheet-parcel');
+    showToast(`"${description}" adicionado com sucesso!`);
+  });
+</script>
+</body>
+</html>
